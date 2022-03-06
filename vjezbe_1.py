@@ -1,4 +1,4 @@
-
+#3. zadatak
 while True:
     x1 = (input('upisi x koordinatu 1. točke: '))
     y1 = (input('upisi y koordinatu 1. točke: '))
@@ -14,7 +14,7 @@ while True:
         print('unesite numericku vrijednost')
 
 
-
+#4. zadatak
 a = (y2-y1)/(x2-x1)
 b = y1 - a*x1
 print('y=',a,'x+', b)
