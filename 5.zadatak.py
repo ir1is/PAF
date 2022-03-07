@@ -4,8 +4,6 @@ import numpy as np
 
 
 
-
-
 def pravac(x1,y1,x2,y2):
     a=(y2-y1)/(x2-x1)
     b= y1 - a*x1 

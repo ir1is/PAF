@@ -14,6 +14,7 @@ while True:
         print('unesite numericku vrijednost')
 
 
+
 #4. zadatak
 a = (y2-y1)/(x2-x1)
 b = y1 - a*x1
