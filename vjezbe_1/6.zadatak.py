@@ -3,12 +3,13 @@ import math
 
 def udaljenost(tx,ty,ix,iy,r):
     kruznica = plt.Circle((ix,iy),r, fill=False)
-    ax = plt.subplot()
-    ax.add_patch(kruznica)
-    ax.plot(tx,ty)
+    
     T = [tx,ty]
     O = [ix,iy]
     d = math.dist(T,O) - r
+    tocka= plt.subplot()
+    tocka.add_patch(kruznica)
+    tocka= plt.plot(tx,ty,'bo')
     if d<0:
         print('točka se nalazi unutar kružnice')
         print('udaljenost je:', abs(d) )
