@@ -20,6 +20,7 @@ def gibanje(F,m):
     plt.plot(t,x, label= 'x-t')
     plt.plot(t,v, label= 'v-t')
     plt.plot(t,a, label='a-t')
+    plt.legend()
     plt.show()
 
 gibanje(100,10)
