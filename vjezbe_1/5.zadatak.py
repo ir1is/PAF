@@ -12,6 +12,8 @@ def pravac(x1,y1,x2,y2):
     x = np.array([x1,y1])
     y = np.array([x2,y2])
     plt.plot(x,y)
+    tocka1= plt.plot(x1,x2,'bo')
+    tocka2= plt.plot(y1,y2,'bo')
     
     odgovor = input('ako želite prikazati graf upisite br 1, a ako želite spremiti u pdf upišite 2')
     if odgovor == '1':
