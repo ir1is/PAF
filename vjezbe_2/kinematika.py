@@ -1,7 +1,29 @@
-from cProfile import label
 import numpy as np
-import matplotlib.pylab as plt
-import math as m
+import matplotlib.pyplot as plt
+
+
+
+def gibanje(F,m):
+    t = []
+    x= []
+    v= []
+    a = []
+    a.append(F/m)
+    dt = 0.1
+    t.append(0)
+    x.append(0)
+    v.append(0)
+    for i in range(0,10):
+        t.append(i * dt)
+        v.append(v[i]+ a[i]*dt)
+        x.append( x[i]+v[i]* dt)
+        a.append(F/m)
+
+    plt.plot(t,x, label= 'x-t')
+    plt.plot(t,v, label= 'v-t')
+    plt.plot(t,a, label='a-t')
+    plt.legend()
+    plt.show()
 
 def kosi_hitac(v0,theta):
     v0_x = v0 * np.cos((theta/180)* np.pi)
@@ -37,10 +59,6 @@ def kosi_hitac(v0,theta):
         y1[i]= y[i]
     t1 = np.linspace(0,100,pad)
 
-
-# print(x1)
-# print(y1)
-
     figure,axis = plt.subplots(3,1)
     axis[0].plot(t1,y1)
     axis[1].plot(t1,x1)
@@ -51,22 +69,5 @@ def kosi_hitac(v0,theta):
     axis[2].plot(x1,y1)
     axis[2].set_xlabel('x')
     axis[2].set_ylabel('y')
-
-
-
-    # v[i+1]=v[i] + a *dt
-    # x[i+1]=x[i]+ v[i] *dt
-# fig, axis = plt.subplots(1, 1, figsize=(14, 4))
-
-# axis[0].plot(t, x)
-# axis[0].set_title("x-t")
-
-# axis[1].plot(t,y)
-# axis[1].set_title("y-t")
-    
-    figure.tight_layout()
     plt.show()
-
-kosi_hitac(23,43)
-
 
