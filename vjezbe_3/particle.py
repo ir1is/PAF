@@ -40,8 +40,9 @@ class Particle:
 
     def plot_trajectory(self):
         self.range()
-        
         plt.plot(self.x[:-1],self.y[:-1])
+        plt.xlabel('x')
+        plt.ylabel('y')
         plt.show()
             
         
