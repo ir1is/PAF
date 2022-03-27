@@ -20,13 +20,12 @@ class Particle:
         self.vy.append(v0 * np.sin(np.radians(kut)))
         self.ay.append(9.81)
         self.ax.append(0)
+        self.dt = 0.1
 
     def reset(self):
         self.__init__()
     
-
     def __move(self):
-        self.dt = 0.1
         self.t.append(self.t[-1]+ self.dt)
         self.vy.append(self.vy[-1]-self.ay[-1] * self.dt)
         self.vx.append(self.vx[-1]+self.ax[-1] * self.dt)
@@ -40,17 +39,10 @@ class Particle:
         return self.x[-1]
 
     def plot_trajectory(self):
-        self.listaX = []
-        self.listaY = []
-
-        self.__move()
-        for i in self.y:
-            if i>0:
-                self.listaX.append(i)
-                self.listaY.append(i)
-            elif i<0:
-                break
-            plt.plot(self.listaX,self.listaY)
-            plt.show()
+        self.range()
+        
+        plt.plot(self.x[:-1],self.y[:-1])
+        plt.show()
             
+        
 
