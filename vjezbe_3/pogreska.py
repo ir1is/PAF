@@ -19,6 +19,8 @@ for i in range(1,1000):
     p1.set_initial_conditions(0,0,kut,v0)
 
 plt.plot(dt,r_pogreska)
+plt.xlabel('dt')
+plt.ylabel('relativn apogreška')
 plt.show()
     
 
