@@ -32,21 +32,25 @@ class Particle:
         self.vx.append(self.vx[-1]+self.ax[-1] * self.dt)
         self.x.append(self.x[-1]+self.vx[-1]*self.dt)
         self.y.append(self.y[-1]+self.vy[-1]*self.dt)
-        
+        #print(self.vy)
     def range(self):
         while self.y[-1]>=0:
             self.__move()
-            print(self.y[-1])
+            #print(self.y[-1])
         return self.x[-1]
 
     def plot_trajectory(self):
-        self.x_lis = []
-        self.x_lis.append(self.range(self.x))
-    
-        # for i in range (len(self.t)):
-        #     self.x[i].append(self.__move)
-        #     self.y[i].append(self.__move)
-        plt.plot(self.x_lis,self.y, label='x-y')
-        plt.show()
+        self.listaX = []
+        self.listaY = []
 
+        self.__move()
+        for i in self.y:
+            if i>0:
+                self.listaX.append(i)
+                self.listaY.append(i)
+            elif i<0:
+                break
+            plt.plot(self.listaX,self.listaY)
+            plt.show()
+            
 

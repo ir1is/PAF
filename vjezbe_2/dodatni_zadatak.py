@@ -37,7 +37,7 @@ def x_y(theta,v0):
     t1 = np.linspace(0,100,pad)
 
     plt.plot(x1,y1)
-    plt.set_xlabel('x')
+    
     plt.show()
 
 def max_visina(v0,theta):
