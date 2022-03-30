@@ -1,14 +1,29 @@
 import numpy as np
 
-def derivacija(func,x,dx):
+#prva metoda
+def two_point(func,x,dx=0.001):
     return (func(x+ dx)-func(x))/dx
 
-def three_point (func,x,dx):
+def three_point (func,x,dx=0.001):
     return ((func(x+dx))-(func(x-dx)))/(2*dx)
 
+def derivacija(func,x,dx=0.001,vrsta='three_point'):
+    if vrsta=='three_point':
+        return three_point(func,x,dx)
+    else:
+        return two_point(func,x,dx)
 
-# def odredeni_integral(func,a,b,N):
-#     dx = (b-a)/N
-#     for i in range N:
-#         liva =[]
-#         liva = dx*(func(b))
+#druga metoda
+
+def derivacija_na_rasponu(func,gornja_granica,donja_granica,dx=0.001):
+    x = [donja_granica]
+    y = [three_point(func,x[-1],dx)]
+    while x[-1]<gornja_granica:
+        x.append(x[-1]+dx)
+        y.append(three_point(func,x[-1],dx))
+    return x,y
+
+
+
+
+
