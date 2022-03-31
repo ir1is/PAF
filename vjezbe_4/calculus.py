@@ -15,14 +15,25 @@ def derivacija(func,x,dx=0.001,vrsta='three_point'):
 
 #druga metoda
 
-def derivacija_na_rasponu(func,gornja_granica,donja_granica,dx=0.001):
+def derivacija_na_rasponu(func,gornja_granica,donja_granica,dx=0.02):
     x = [donja_granica]
     y = [three_point(func,x[-1],dx)]
     while x[-1]<gornja_granica:
-        x.append(x[-1]+dx)
         y.append(three_point(func,x[-1],dx))
+        x.append(x[-1]+dx)
+        #y.append(three_point(func,x[-1],dx))
+        print(y)
     return x,y
 
+#zad2, prva metoda
+def integral(func,a,b,N):
+    dx = (b-a)/N
+    gornja_m =0
+    donja_m =0 
+    for i in range(N):
+
+
+    return dx/2 * np.sum()
 
 
 
