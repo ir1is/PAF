@@ -31,10 +31,23 @@ def integral(func,a,b,N):
     gornja_m =0
     donja_m =0 
     for i in range(N):
+        donja_m += (func(a +i*dx))*dx
+        gornja_m += (func(a+(i+1)*dx))*dx
+    return donja_m, gornja_m
 
+#zad2, druga metoda
+def trapez(func,a,b,N):
+    dx=(b-a)/N
+    integral =0
+    for i in range(N):
+        lijeva_visina = func(a +i*dx)
+        desna_visina = func(a +(i+1)*dx)
+        pravokutnik = lijeva_visina * dx
+        trokut = ((desna_visina- lijeva_visina) * dx)/2
+        integral += pravokutnik+trokut
+    return integral 
 
-    return dx/2 * np.sum()
-
+         
 
 
 
