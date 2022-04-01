@@ -44,7 +44,7 @@ def trapez(func,a,b,N):
         desna_visina = func(a +(i+1)*dx)
         pravokutnik = lijeva_visina * dx
         trokut = ((desna_visina- lijeva_visina) * dx)/2
-        integral += pravokutnik+trokut
+        integral += pravokutnik+trokut     
     return integral 
 
          
