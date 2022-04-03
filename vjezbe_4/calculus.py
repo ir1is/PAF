@@ -19,9 +19,8 @@ def derivacija_na_rasponu(func,gornja_granica,donja_granica,dx=0.02):
     x = [donja_granica]
     y = [three_point(func,x[-1],dx)]
     while x[-1]<gornja_granica:
-        y.append(three_point(func,x[-1],dx))
         x.append(x[-1]+dx)
-        #y.append(three_point(func,x[-1],dx))
+        y.append(three_point(func,x[-1],dx))
         print(y)
     return x,y
 
