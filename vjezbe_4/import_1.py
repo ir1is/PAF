@@ -1,4 +1,4 @@
-from cProfile import label
+
 import calculus as cl 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,7 +15,7 @@ def f3(x):
 
 #graf analiticke i numericke drivacije
 x,y = cl.derivacija_na_rasponu(f2,1,0,0.02)
-plt.plot(x,y, label='numericki')
+plt.scatter(x,y, label='numericki')
 
 x_analiticki = [0]
 y_analiticki = [0]

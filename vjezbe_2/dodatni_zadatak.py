@@ -1,12 +1,12 @@
 from re import T
 import numpy as np
 import matplotlib.pyplot as plt
+import math 
 
 def x_y(theta,v0):
     v0_x = v0 * np.cos((theta/180)* np.pi)
     v0_y = v0*np.sin((theta/180)*np.pi)
     t = list(np.arange(0.0,10,0.1))
-    #t =[0]
     x=[0]
     y= [0]
     v_x =[v0_x]
@@ -113,7 +113,8 @@ def meta(v0,theta,xi,yi,r):
         x.append(x[-1] +v_x* dt)
         y.append(y[-1] + v_y[-1] * dt)
         v_y.append(v_y[-1]- a_y[-1] * dt)
-        d.append(np.sqrt((xi-x[-1])**2+(yi-y[-1])**2)-r)
+        d.append((math.dist([xi,yi],[ x[-1],y[-1] ]))-r)
+        #d.append(np.sqrt((xi-x[-1])**2+(yi-y[-1])**2)-r)
         if d[-1]<0:
             print('meta je pogođena')
             break
@@ -125,6 +126,7 @@ def meta(v0,theta,xi,yi,r):
     axes.add_patch(me_ta)
     axes.plot(x,y)
     plt.show()
+    
         
 
 

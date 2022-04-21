@@ -8,10 +8,11 @@ period =[]
 period_analiticki = []
 
 for i in range (1,100):
-    period_analiticki.append(2*np.pi/objekt.kutna_frek)
+    period_analiticki.append(2*np.pi/objekt.om)
     dt.append(i/1000)
     period.append(objekt.t_titranja(dt[-1]))
     objekt.reset()
+    objekt.set_initial_conditions(1,3,10,3)
 plt.plot(dt,period)
 plt.plot(dt,period_analiticki)
 plt.show()
