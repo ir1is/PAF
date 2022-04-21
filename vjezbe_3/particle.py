@@ -46,7 +46,6 @@ class Particle:
     def total_time(self):
         while self.y[-1]>=0:
             self.__move()
-            #print(self.t)
         return (self.t[-1])
         
     def max_speed(self):
@@ -67,12 +66,12 @@ class Particle:
         kut = 0
         kutevi= []
         domet = []
-        while kut <= np.pi/2:
+        while kut <= 90:
+            self.reset()
             self.set_initial_conditions(x,y,kut,v0)
             kutevi.append(kut)
             domet.append(self.range())
-            kut += 0.1
-            self.reset()
+            kut += 0.01
         plt.plot(kutevi, domet)
         plt.xlabel('kut')
         plt.ylabel('domet')
@@ -82,7 +81,7 @@ class Particle:
         tok_vremena=[]
         kutevi= []
         kut = 0
-        while kut<=np.pi/2:
+        while kut<=90:
             self.set_initial_conditions(x,y,kut,v0)
             kutevi.append(kut)
             tok_vremena.append(self.total_time())
