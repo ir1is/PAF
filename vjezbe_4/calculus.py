@@ -45,8 +45,3 @@ def trapez(func,a,b,N):
         trokut = ((desna_visina- lijeva_visina) * dx)/2
         integral += pravokutnik+trokut     
     return integral 
-
-         
-
-
-

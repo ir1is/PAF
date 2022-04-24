@@ -114,7 +114,6 @@ def meta(v0,theta,xi,yi,r):
         y.append(y[-1] + v_y[-1] * dt)
         v_y.append(v_y[-1]- a_y[-1] * dt)
         d.append((math.dist([xi,yi],[ x[-1],y[-1] ]))-r)
-        #d.append(np.sqrt((xi-x[-1])**2+(yi-y[-1])**2)-r)
         if d[-1]<0:
             print('meta je pogođena')
             break
