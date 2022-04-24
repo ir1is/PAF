@@ -57,10 +57,6 @@ class Particle:
                 max_speed_y=el
         return np.sqrt((max_speed_y)**2+(self.vx[-1])**2)
 
-    # def velocity_to_hit_target(self,x0,y0,x_target,y_target,r,kut):
-    #     kuglica = plt.Circle((x_target,y_target),r, fill=False)
-    #     O = [x_target,y_target]
-
 #zadatak 2
     def ovisnost_dometa(self,v0,x,y):
         kut = 0
