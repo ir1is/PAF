@@ -1,9 +1,19 @@
 #include <Particle.h>
 #include <math.h>
+Particle::Particle(double v,double theta, double x0, double y0,double step)
+{x =x0;
+y = y0;
+vx = v*cos(theta * (M_PI/180));
+vy = v*sin(theta* (M_PI/180));
+t = 0;
+dt = step;
+}
 void Particle::evolve()
+
 {
     while(y>=0)
     {
+    
         vx += 0.;
         vy += g*dt;
         x += vx*dt;
@@ -14,11 +24,11 @@ void Particle::evolve()
 }
 double Particle::range()
 {
-    while(y>=0)
     evolve();
     return x;
-        
 }
-
-Particle::Particle(double v,double theta, double x0, double y0,double step)
-{10,40,0,0;}
+double Particle::time()
+{
+    evolve();
+    return t;
+}
