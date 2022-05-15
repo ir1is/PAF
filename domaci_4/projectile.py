@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 class Particle:
     def __init__(self):
@@ -29,6 +30,10 @@ class Particle:
         self.c = c
         self.A = A 
         self.m = m
+        
+    def A_f(self,kut):
+        return self.A
+
 
     def reset(self):
         self.__init__()
@@ -57,7 +62,7 @@ class Particle:
         plt.show()
 
     def a_rk(self,x,v,t):
-        return -1*np.sign((v*self.p*self.c*self.A/2*self.m)*v**2)
+        return -1*np.sign((v*self.p*self.c*self.A_f(np.radians(np.arctan(self.vy[-1]/self.vx[-1])))/2*self.m)*v**2)
 
 
     def runge_kutta(self):
@@ -94,7 +99,7 @@ class Particle:
             
         return self.x,self.y
 
-    def a_kugla(self):
+    def a_kugla(self,kut):
         return self.stranica**2 * np.pi
 
     def a_kocka(self,kut):
@@ -106,4 +111,24 @@ class Particle:
             self.A_f= self.a_kugla
         else:
             self.A_f= self.a_kocka
+        return self.runge_kutta()
+        
+    def meta(self,xm,ym,rm):
+        for kut in range(1,90):
+            self.set_initial_conditions(0,0,kut,5,0.0001,0.4,2,3)
+            pogodeno=0
+            xi,yi = self.runge_kutta()
+            for i in range (len(xi)):
+                if math.dist([ xi[i] ,yi[i]],[xm,ym])< rm:
+                    pogodeno = 1
+                    break
+            self.reset()
+            if pogodeno ==1:
+                return kut,xi,yi
+        return 0,[],[]
+            
+
+
+
+    
         
