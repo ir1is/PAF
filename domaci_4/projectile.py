@@ -93,4 +93,17 @@ class Particle:
             i+=1
             
         return self.x,self.y
-            
+
+    def a_kugla(self):
+        return self.stranica**2 * np.pi
+
+    def a_kocka(self,kut):
+        return self.stranica**2 * np.cos(kut)
+
+    def kugla_kocka(self,stranica_a,vrsta='kugla'):
+        self.stranica = stranica_a
+        if vrsta == 'kugla':
+            self.A_f= self.a_kugla
+        else:
+            self.A_f= self.a_kocka
+        
