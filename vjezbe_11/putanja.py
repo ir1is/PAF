@@ -1,42 +1,49 @@
 import numpy as np
+import math
+import matplotlib.pyplot as plt
 
 class Gravitacija:
-    def __init__(self):
-        self.ms = 0
-        self.mz = 0
-        self.xs = []
-        self.ys = 0
-        self.xz = []
-        self.yz = 0
-        self.vxs = 0
-        self.vys = 0
-        self.vxz = 0
-        self.vyz = 0
-        
-        
-    def set_init(self,ms,mz,xs,ys,xz,yz,vxs,vys,vxz,vyz):
-        self.ms = ms
-        self.mz = mz
-        self.xs.append(xs)
-        self.ys = yz
-        self.xz.append(xz)
-        self.yz = yz
-        self.vxs = vxs
-        self.vys = vys
-        self.vxz = vxz
-        self.vyz = vyz
-        self.v_s.append(np.sqrt(vxs**2+vys**2))
-        self.v_z.append(np.sqrt(vxz**2+vyz**2))
-
+    def __init__(self,xs,ys,xz,yz,vxs,vys,vxz,vyz):
+        self.mz = 5.972*(10**24)
+        self.ms = 1.9891*(10**30)
+        self.r_s = np.array((xs,ys))
+        self.r_z = np.array((xz,yz))
+        self.v_s=np.array((vxs,vys))
+        self.v_z=np.array((vxz,vyz))
+        self.G = 6.67426*(10**(-11))
+        self.godina = 365.242*24*3600
+        self.xs = [xs]
+        self.xz =[xz]
+        self.ys = [ys]
+        self.yz = [yz]
+        self.t = 0
     def a_s(self):
-        return -9.81*(self.ms/(self.xs[-1]-self.xz[-1])**2)
+        return -self.G*(self.mz/(np.linalg.norm(self.r_s-self.r_z))**3)*(self.r_s-self.r_z)
+    
     def a_z(self):
-        return -9.81*(self.mz/(self.xs[-1]-self.xz[-1])**2)
+        return -self.G*(self.ms/(np.linalg.norm(self.r_z-self.r_s))**3)*(self.r_z-self.r_s)
 
+    def move(self,dt =86400):     
+        self.v_s = self.v_s+self.a_s()*dt
+        self.r_s =(self.r_s + self.v_s*dt)
+        self.v_z =self.v_z+self.a_z()*dt
+        self.r_z =self.r_z+self.v_z*dt
+        self.xs.append(self.r_s[0])
+        self.ys.append(self.r_s[1])
+        self.xz.append(self.r_z[0])
+        self.yz.append(self.r_z[1])
+        self.t+=dt
 
-    def move(self,dt =0.01):
-        self.v_s.append(np.sqrt( (self.vxs + self.a_s*dt)**2+(self.vys+self.a_s*dt)**2))
-        self.r_s.append(self.xs[-1] + self.v_s[-1])
-        self.v_z.append(np.sqrt( (self.vxz[-1] +self.a_z*dt)**2+(self.vyz[-1]+self.a_z*dt)**2))
-        self.r_z.append(self.xz[-1] + self.v_z[-1])
+    def trajectory(self):
+        while self.t<self.godina:
+            self.move()
+        # plt.plot(self.xs,self.ys,label='sunce')
+        # plt.plot(self.xz,self.yz, label ='zemlja')
+        figs,(p1,p2)=plt.subplots(1,2)
+        p1.plot(self.xs,self.ys)
+        p2.plot(self.xz,self.yz,label='zemlja')
+        plt.legend()
+        plt.show()
+        
+
 
