@@ -33,16 +33,16 @@ class Particle:
 
 
     def __a(self,v):
-        return self.g/self.m*(self.E+np.cross(v,self.B))
+        return self.q/self.m*(self.E+np.cross(v,self.B))
     def __move_rk(self,dt=0.01):
         k1v = self.__a(self.v)*dt
         k1xyz = self.v*dt
         k2v = self.__a(self.v+0.5*k1v)*dt
         k2xyz = (self.v+k2v*0.5)*dt
         k3v = self.__a(self.v+0.5*k2v)*dt
-        k3xyz = (self.v+k2v*0.5)*dt
+        k3xyz = (self.v+k3v*0.5)*dt
         k4v = self.__a(self.v+k3v*0.5)*dt
-        k4xyz = (self.v+k3v)*dt
+        k4xyz = (self.v+k4v)*dt
         
         self.v += (k1v + 2*k2v + 2*k3v + k4v)/6
         self.x.append(self.x[-1] + (k1xyz[0] + 2*k2xyz[0] + 2*k3xyz[0] + k4xyz[0])/6)
@@ -51,6 +51,6 @@ class Particle:
         self.t += dt
 
     def move_rk(self,t):
-        while self.t[-1]<t:
+        while self.t<t:
             self.__move_rk()
             return self.x,self.y,self.z
