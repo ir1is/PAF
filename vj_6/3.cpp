@@ -40,4 +40,5 @@ int main() {
     lista.sort();
     polje(lista);
 
-    re
+    return 0;
+}
