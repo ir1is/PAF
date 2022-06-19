@@ -47,47 +47,47 @@ class HarmonicOscillator:
         plt.tight_layout()
         plt.show()
 
-    #def t_titranja(self,dt=0.001):
-        # t1=[]
-        # self.t=[0]
-        # b = 0
-        # while b<2:
-        #     self.v.append(self.v[-1]+self.a[-1]*dt)
-        #     self.x.append(self.x[-1]+self.v[-1]*dt)
-        #     self.a.append(-1*(self.k/self.m)*self.x[-1])
-        #     self.t.append(self.t[-1]+dt)
-        #     if (self.x[-1]>=0 and self.x[-2]<0) or (self.x[-1]<=0 and self.x[-1]>0):
-        #         t1.append(self.t[-1])
-        #         b+=1
-        # return (t1[-1]-t1[-2])*2
+    def t_titranja(self,dt=0.001):
+        t1=[]
+        self.t=[0]
+        b = 0
+        while b<2:
+            self.v.append(self.v[-1]+self.a[-1]*dt)
+            self.x.append(self.x[-1]+self.v[-1]*dt)
+            self.a.append(-1*(self.k/self.m)*self.x[-1])
+            self.t.append(self.t[-1]+dt)
+            if (self.x[-1]>=0 and self.x[-2]<0) or (self.x[-1]<=0 and self.x[-1]>0):
+                t1.append(self.t[-1])
+                b+=1
+        return (t1[-1]-t1[-2])
 
-    def analiticko(self,t1=2):
-        self.x_l=[]
-        self.t_l=[]
-        self.om=np.sqrt(self.k/self.m)
-        self.t=0
-        while self.t<=t1:
-            x=self.x*np.cos(self.om*self.t)
-            self.t+=self.dt
-            self.x_l.append(x)
-            self.t_l.append(self.t)
-        return self.x_l,self.t_l
+    # def analiticko(self,t1=2):
+    #     self.x_l=[]
+    #     self.t_l=[]
+    #     self.om=np.sqrt(self.k/self.m)
+    #     self.t=0
+    #     while self.t<=t1:
+    #         x=self.x*np.cos(self.om*self.t)
+    #         self.t+=self.dt
+    #         self.x_l.append(x)
+    #         self.t_l.append(self.t)
+    #     return self.x_l,self.t_l
 
-    def precise(self,t=2):
-        self.oscillation(t)
-        plt.scatter(self.t_l,self.x_l)
-        plt.title('x-t graf')
-    def period(self,dt,t):
-        A = self.x
-        T = 0
-        self.oscillation(t)
-        for x in self.x_l:
-                if x > 0:
-                    T += dt
-                else:
-                    break
-        print(4*T)
+    # def precise(self,t=2):
+    #     self.oscillation(t)
+    #     plt.scatter(self.t_l,self.x_l)
+    #     plt.title('x-t graf')
+    # def period(self,dt,t):
+    #     A = self.x
+    #     T = 0
+    #     self.oscillation(t)
+    #     for x in self.x_l:
+    #             if x > 0:
+    #                 T += dt
+    #             else:
+    #                 break
+    #     print(4*T)
 
-    def T_analiticki(self):
-        T = 2*np.pi*np.sqrt(self.m/self.k)
-        print(T)
+    # def T_analiticki(self):
+    #     T = 2*np.pi*np.sqrt(self.m/self.k)
+    #     print(T)
