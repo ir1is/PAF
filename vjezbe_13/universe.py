@@ -1,10 +1,14 @@
 from matplotlib.animation import FuncAnimation
+from matplotlib.collections import LineCollection
 import numpy as np
 import matplotlib.pyplot as plt
-fig,ax = plt.subplots()
-x = []
-y = []
-ln,=plt.plot([],[],label='svemir')
+fig, ax = plt.subplots()
+x = np.array([[]])
+y = np.array([[]])
+lines = []
+colors = []
+lc = LineCollection(lines, cmap="viridis", lw=4)
+ax.add_collection(lc)
 class Planet:
     def __init__(self,planet,m,r0,v0,boja):
         self.planets = [planet]
@@ -48,25 +52,30 @@ class Universe:
         for pl in self.universe:
             plt.plot(pl.x,pl.y,color= pl.boja)
         plt.show()
+
     def animate(self):
+        global x, y, colors
         while self.t[-1]<self.time:
             self.move()
-        a =[]
+        x = []
+        y = []
         for pl in self.universe:
-            f = []
-            for i in range(len(pl.x)):
-                f.append([pl.x[i],pl.y[i],pl.boja])
-
-            a.append(FuncAnimation(fig,dodaj,init_func=postavi,blit=True,frames=f))
+            x.append(pl.x)
+            y.append(pl.y)
+        l = len(x[0])
+        x = np.array(x)
+        y = np.array(y)
+        colors = np.arange(1, len(self.universe) + 1, 1)
+        a = FuncAnimation(fig,dodaj,x.shape[1],interval=l,init_func=postavi,blit=True)
         plt.show()
 def postavi():
-    ax.set_xlim(-6*(10**11),6*(10**11))
-    ax.set_ylim(-3*(10**11),3*(10**11))
-    return ln,
-def dodaj(frame):
-    x.append(frame[0])
-    y.append(frame[1])
-    a =plt.plot(x,y,color=frame[2])
-    #ln.set_data(x,y)
-    return a
-        
+    ax.set_xlim(-3*(10**11),3*(10**11))
+    ax.set_ylim(-6*(10**11),6*(10**11))
+    return lc,
+def dodaj(num):
+    new_x = x[:, :num]
+    new_y = y[:, :num]
+    lines = [np.column_stack([xi, yi]) for xi, yi in zip(new_x, new_y)]
+    lc.set_segments(lines)
+    lc.set_array(colors)
+    return lc,
