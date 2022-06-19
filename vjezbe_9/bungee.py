@@ -1,67 +1,100 @@
-import numpy as np
+import math
 import matplotlib.pyplot as plt
 
+class BungeeJumping:
+    def __init__(self,m,k,v0,h0,l,rho=1,Cd=1,A=1,dt=0.001,o_zr = True):
+        self.m=m 
+        self.k=k
+        self.l=l
+        self.h0=h0
+        self.rho=rho 
+        self.Cd=Cd
+        self.A=A
+        self.dt=dt
+        self.o_zr=o_zr
+        self.h=h0
+        self.v0=0 
+        self.t=0 
+        self.h_=[]
+        self.t_=[]
+        self.h_.append(self.h)
+        self.t_.append(self.t)
+        self.U=self.m * 9.81 * self.h
+        self.K=0 
+        self.Ee=0
+        self.E = self.U + self.K + self.Ee
+        self.U_= []
+        self.K_ = []
+        self.Ee_ = []
+        self.E_ = []
+        self.U_.append(self.U)
+        self.K_.append(self.K)
+        self.Ee_.append(self.Ee)
+        self.E_.append(self.E)
 
-class Bungee:
-    def __init__(self):
-        self.x = []
-        self.E =[]
-        self.t = []
-        self.g =9.81
-        self.U = []
-        self.C = 0
+    def reset(self):
+        self.m = 0
+        self.k = 0
+        self.l= 0
+        self.h0= 0
+        self.rho= 0
+        self.Cd = 0
         self.A = 0
-        self.v = []
-        self.a_oz = []
-        self.a = 0
-        self.kin =  []
-        self.poten = []
-        self.elasticna = []
-    def set_init(self,vi,k,m,h,l,rho,C,A,q,xi,o_z=True,dt=0.1):
-        self.k = k
-        self.m = m
-        self.h = h
-        self.rho = rho
-        self.C = C
-        self.A = A
-        self.q = q
-        self.l = l
-        self.o_z = o_z
-        self.x.append(xi)
-        self.t.append(0)
-        self.U.append(m*self.g*h)
-        self.vi = vi
-        self.v.append(vi)
-        self.dt = dt
-        self.kin.append(0)
-        self.poten.append(m*self.g*h)
-        self.elasticna.append(0)
+        self.dt =0
+        del self.o_zr
+        self.h =0
+        self.v0 = 0
+        self.t = 0
+        self.h_ = []
+        self.t_ = []
+        self.U = 0
+        self.K = 0 
+        self.Ee =0
+        self.E = 0
+        self.U_ = []
+        self.K_= []
+        self.Ee_ = []
+        self.E_ = []
 
-    def __move(self):
-        dx = self.h-self.l-self.x[-1]
-        self.t.append(self.t[-1]+ self.dt)
-        if dx<0:
-            a_elast = 0
+    def akceleracija(self):
+        dx = self.h0 - self.l - self.h
+        if dx > 0:
+            a_el = (self.k/self.m)*dx
+        else: 
+            a_el = 0
+        if self.o_zr:
+            a_AR = -(abs(self.v0)*self.v0*self.rho*self.Cd*self.A)/(2*self.m)
         else:
-            a_elast= np.sqrt(self.k/self.m)*dx
-        self.a_oz.append(-self.g-np.sign(self.v[-1])*(self.rho*self.C*self.A/2*self.m)*self.v[-1]**2)
-       
-        a_f = -self.g + a_elast + self.a_oz[-1]
-        self.v.append(self.v[-1]+a_f * self.dt)
-        self.x.append(self.x[-1]+self.v[-1]*self.dt)
-        self.kin.append(0.5*self.m*self.v[-1]**2)
-        self.poten.append(self.m*self.g*(self.h-self.x[-1]))
-        self.elasticna.append(0.5*self.k*dx**2)
-    
-    def __jump(self,trajanje):
-        while self.t[-1]<trajanje:
-            self.__move()
+            a__AR = 0
+        a = -9.81 + a_el + a_AR
+        return a
 
-    def plotanje(self):
-        self.__jump(50)
-        fig,(p1,p2,p3)=plt.subplots(1,3)
-        p1.plot(self.t,self.poten)
-        p2.plot(self.t,self.kin)
-        p3.plot(self.t,self.elasticna)
-        plt.show()
+    def energija(self):
+        dx = self.h0 - self.l - self.h
+        if dx > 0:
+            self.Ee = (1/2)*self.k*dx**2
+        else:
+            Ee = 0
+        self.U=self.m * 9.81 * self.h
+        self.K = 0.5*self.m*(self.v0)**2
+        self.E = self.U + self.K + self.Ee
+        
+
     
+    def __jump(self):
+        self.a = self.akceleracija()
+        self.v0 += self.a*self.dt
+        self.h += self.v0*self.dt
+        self.t += self.dt
+        self.energija()
+
+    def jump(self,t):
+        while self.t < t:
+            self.__jump()
+            self.h_.append(self.h)
+            self.t_.append(self.t)
+            self.Ee_.append(self.Ee)
+            self.K_.append(self.K)
+            self.U_.append(self.U)
+            self.E_.append(self.E)
+   

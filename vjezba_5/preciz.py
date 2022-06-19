@@ -1,0 +1,21 @@
+import matplotlib.pyplot as plt
+import harmonic_oscillator as ho
+h1=ho.HarmonicOscillator()
+h1.set_initial_conditions(5,0.1,0.3,0.1)
+h1.precise(0.01)
+h1.reset()
+h1=ho.HarmonicOscillator()
+h1.set_initial_conditions(5,0.1,0.3,0.1)
+
+h1.precise(0.05)
+h1.reset()
+h1=ho.HarmonicOscillator()
+h1.set_initial_conditions(5,0.1,0.3,0.1)
+h1.precise(0.1)
+h1.reset()
+h1=ho.HarmonicOscillator()
+h1.set_initial_conditions(5,0.1,0.3,0.1)
+x,t= h1.analiticko(0.01)
+plt.plot(t,x)
+plt.show()
+h1.reset()

@@ -1,4 +1,4 @@
-from universe import Planet, Universe 
+from un import Planet, Universe 
 import numpy as np
 au = 1.496e11
 
