@@ -13,7 +13,7 @@ for i in dt_l:
     objekt.vertikalni(dt=i)
     t_l.append(objekt.vrijeme_trajanja())
     greska.append(abs( t_l[-1]-analiticki)/analiticki  )
-
+    
 plt.plot(dt_l,greska)
 #plt.set_xlabel('dt')
 #plt.set_ylabel('greska (%)')
